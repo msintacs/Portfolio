@@ -1,0 +1,27 @@
+server.port: ****
+
+server:
+  servlet:
+    context-path: ****
+
+spring:
+  output.ansi.enabled: always
+  
+  # ============================= [ MySQL ] ============================
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "DB 접속정보"
+    username: "DB 계정"
+    password: "DB 패스워드"
+  
+  # ============================= [ JPA  ] =============================
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    generate-ddl: false
+    open-in-view: false
+    show-sql: true
+  
