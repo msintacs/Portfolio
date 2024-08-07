@@ -1,9 +1,11 @@
 # api
 api/.gradle
 api/build
+api/src/main/resources/application.yaml
 
 # ui
 ui/node_modules
+ui/.env.development
 
 # IDE
 .idea/
