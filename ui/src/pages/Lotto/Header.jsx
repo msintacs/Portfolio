@@ -29,7 +29,7 @@ function Header({ isSidebarOpen, handleSidebarOnOff }) {
           {isSidebarOpen ? <ArrowBackIcon /> : <MenuIcon />}
         </button>
         <button type="button" className="text-2xl" onClick={goHome}>
-          msintacs
+          7iMsb
         </button>
       </div>
       <div className="flex items-center">

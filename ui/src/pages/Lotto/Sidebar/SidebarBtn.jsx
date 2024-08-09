@@ -41,9 +41,9 @@ function SidebarBtn({ item, handleOpen, isOpen, isSidebarOpen }) {
       <button
         type="button"
         key={item.menuName}
-        className={`group w-full rounded-3xl px-5 py-2 font-bold hover:bg-gray-800 hover:text-gray-50 ${
+        className={`group w-full rounded-3xl py-2 font-bold hover:bg-gray-800 hover:text-gray-50 ${
           isOpen ? "text-indigo-900" : ""
-        } ${isSidebarOpen ? "" : "px-2"}`}
+        } ${isSidebarOpen ? "px-5" : "px-2"}`}
         onClick={() => (isSidebarOpen ? handleOpen() : handleClick(null, null))}
       >
         <div className="flex justify-between">

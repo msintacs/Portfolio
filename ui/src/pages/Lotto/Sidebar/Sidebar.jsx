@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Paper } from "@mui/material";
 import { menu } from "./SidebarObject";
 import SidebarBtn from "./SidebarBtn";
+import SidebarContentSeletor from "./SidebarContentSeletor";
 
 /**
  *
@@ -27,6 +28,8 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
       }`}
       elevation={2}
     >
+      <SidebarContentSeletor />
+
       {menu.map((item, index) => (
         <SidebarBtn
           key={item.menuName}

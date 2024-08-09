@@ -11,7 +11,12 @@ function Footer() {
         CONTAC
       </p>
       <div className="mt-10 flex flex-col items-center justify-center">
-        <a href="https://github.com/msintacs" className="pb-3">
+        <a
+          href="https://github.com/msintacs/Portfolio"
+          target="_blank"
+          className="pb-3"
+          rel="noreferrer"
+        >
           <img
             src={GitHubImg}
             alt="GitHub"
@@ -19,6 +24,23 @@ function Footer() {
           />
         </a>
         <div> msintacs@gmail.com </div>
+        <div className="mt-5 text-sm text-gray-300">
+          <a
+            target="_blank"
+            rel="noreferrer noopener"
+            href="https://icons8.com/icon/AfM2kzPzTz6Q/portfolio"
+          >
+            favicon
+          </a>
+          &nbsp; designed by &nbsp;
+          <a
+            target="_blank"
+            rel="noreferrer noopener"
+            href="https://icons8.com"
+          >
+            Icons8
+          </a>
+        </div>
       </div>
     </div>
   );

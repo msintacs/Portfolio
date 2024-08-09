@@ -58,7 +58,7 @@ function Header() {
         <div className="flex items-center justify-between">
           <div className="logo">
             <a href="/" className="text-2xl font-bold text-black">
-              <span className="text-lime-400">msintacs</span>
+              <span className="text-3xl text-[#3333ff]">7iMsb</span>
             </a>
           </div>
           <nav>
@@ -85,9 +85,9 @@ function Header() {
           position: "fixed",
           bottom: 20, // SpeedDial 위에 위치하도록 조정
           right: 20,
-          bgcolor: "#a3e635", // SpeedDial과 같은 색상 사용
+          bgcolor: "#3333ff", // SpeedDial과 같은 색상 사용
           "&:hover": {
-            bgcolor: "#45a049", // 호버 시 색상
+            bgcolor: "#ff00cc", // 호버 시 색상
           },
         }}
         onClick={scrollToTop}

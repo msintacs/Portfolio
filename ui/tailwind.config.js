@@ -9,6 +9,7 @@ module.exports = {
         "ink-lipquid": ["InkLipquid", "sans-serif"],
         "yg-jalnan": ["yg-jalnan", "sans-serif"],
         "SUIT-Regular": ["SUIT-Regular", "sans-serif"],
+        "Ownglyph_UNZ-Rg": ["Ownglyph_UNZ-Rg", "Ownglyph_UNZ-Rg"],
       },
       fontSize: {
         "10xl": "10rem",
@@ -23,6 +24,9 @@ module.exports = {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-50%)" },
         },
+      },
+      backgroundImage: {
+        "custom-gradient": "linear-gradient(45deg, #ff00cc, #3333ff)",
       },
     },
   },
