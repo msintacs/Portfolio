@@ -14,6 +14,9 @@ import RockyImg from "../../../assets/img/Rocky.png";
 import SpringBootImg from "../../../assets/img/SpringBoot.png";
 import TailwindImg from "../../../assets/img/Tailwind.png";
 
+/**
+ * @returns 사용 가능 기술 목록 정의 객체
+ */
 export const object = [
   {
     id: "html5",

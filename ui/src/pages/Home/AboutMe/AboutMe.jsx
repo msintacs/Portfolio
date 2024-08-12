@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { object } from "./AboutMeObject";
 
+/**
+ * @returns 이름, 학력 등 정보 BOX
+ */
 function AboutMe() {
   const [isVisible, setIsVisible] = useState(false);
 

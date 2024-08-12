@@ -3,7 +3,6 @@ import { Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 /**
- *
  * @param { Object } item : 메뉴 아이템 객체 (구조는 SidebarObject.jsx 참고)
  * @param { Function } handleOpen : 버튼 핸들러 (서브메뉴 온/오프 전환)
  * @param { boolean } isOpen : 현재 버튼 온/오프 상태

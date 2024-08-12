@@ -8,6 +8,9 @@ import Projects from "./Projects/Projects";
 import Career from "./Carrer/Career";
 import Footer from "./Footer";
 
+/**
+ * @returns 메인포트폴리오 페이지
+ */
 function Home() {
   return (
     <>

@@ -2,6 +2,9 @@ import MonitorIcon from "@mui/icons-material/Monitor";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 
+/**
+ * @returns 사이드바 메뉴 정의 객체
+ */
 export const menu = [
   {
     menuName: "모니터링",

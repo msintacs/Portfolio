@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar/Sidebar";
 import Header from "./Header";
+import { LottoProvider } from "../../context/LottoContext";
 
+/**
+ * @returns 프로젝트1(Lotto) 최상위 컴포넌트로 하위 요소 return
+ */
 function Lotto() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -11,21 +15,23 @@ function Lotto() {
   };
 
   return (
-    <div className="flex h-screen flex-col">
-      <Header
-        isSidebarOpen={isSidebarOpen}
-        handleSidebarOnOff={handleSidebarOnOff}
-      />
-      <div className="flex flex-1">
-        <Sidebar
+    <LottoProvider>
+      <div className="flex h-screen flex-col">
+        <Header
           isSidebarOpen={isSidebarOpen}
-          setIsSidebarOpen={setIsSidebarOpen}
+          handleSidebarOnOff={handleSidebarOnOff}
         />
-        <main className="flex-1 overflow-auto pt-[50px]">
-          <Outlet />
-        </main>
+        <div className="flex flex-1">
+          <Sidebar
+            isSidebarOpen={isSidebarOpen}
+            setIsSidebarOpen={setIsSidebarOpen}
+          />
+          <main className="flex-1 overflow-auto pt-[50px]">
+            <Outlet />
+          </main>
+        </div>
       </div>
-    </div>
+    </LottoProvider>
   );
 }
 

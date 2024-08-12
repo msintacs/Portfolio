@@ -1,3 +1,6 @@
+/**
+ * @return 경력기술서 내용 정의 객체
+ */
 export const object = [
   {
     id: "1",

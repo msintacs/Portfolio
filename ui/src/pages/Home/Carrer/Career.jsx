@@ -1,7 +1,12 @@
+/* eslint-disable react/no-array-index-key */
 import React from "react";
 import { object } from "./CarrerObject";
 
-/* eslint-disable react/no-array-index-key */
+/**
+ * 경력기술서
+ * @returns 경력기술서
+ */
+
 function Career() {
   return (
     <div id="career" className="bg-gray-200 px-10 pt-20">

@@ -1,3 +1,6 @@
+/**
+ * @returns 경력사항 정의 객체
+ */
 export const object = [
   {
     company: "젬텍(주)",

@@ -5,6 +5,9 @@ import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import SchoolIcon from "@mui/icons-material/School";
 
+/**
+ * @returns 개인정보를 정의한 객체
+ */
 export const object = [
   {
     icon: <PersonIcon fontSize="large" />,

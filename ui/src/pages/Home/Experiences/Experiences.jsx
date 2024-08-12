@@ -1,6 +1,10 @@
 import React from "react";
 import { object } from "./ExperiencesObject";
 
+/**
+ * 경력 사항
+ * @returns 경력사항 내용
+ */
 const separator = " · ";
 
 function Experiences() {

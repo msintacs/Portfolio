@@ -1,6 +1,9 @@
 import React from "react";
 import GitHubImg from "../../assets/img/Github.png";
 
+/**
+ * @returns 메인 포트폴리오 페이지 FOOTER
+ */
 function Footer() {
   return (
     <div

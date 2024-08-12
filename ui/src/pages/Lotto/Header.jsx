@@ -5,10 +5,9 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 
 /**
- *
  * @param { boolean } isSidebarOpen : 사이드바 온/오프 Flag
  * @param { Function } handleSidebarOnOff : 사이드바 온/오프 제어 Function
- * @returns 헤더 HTML
+ * @returns 프로젝트1 Lotto 메인 헤더
  */
 function Header({ isSidebarOpen, handleSidebarOnOff }) {
   const navigate = useNavigate();

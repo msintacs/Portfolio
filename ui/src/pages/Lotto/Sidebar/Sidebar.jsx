@@ -5,7 +5,6 @@ import SidebarBtn from "./SidebarBtn";
 import SidebarContentSeletor from "./SidebarContentSeletor";
 
 /**
- *
  * @param { boolean } isSidebarOpen : 사이드바 온/오프 Flag
  * @param { Function } handleSidebarOnOff : 사이드바 온/오프 제어 Function
  * @returns 사이드바 전체 및 하위 서브메뉴 리스트
@@ -28,7 +27,7 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
       }`}
       elevation={2}
     >
-      <SidebarContentSeletor />
+      {isSidebarOpen ? <SidebarContentSeletor /> : ""}
 
       {menu.map((item, index) => (
         <SidebarBtn
