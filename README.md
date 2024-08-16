@@ -1,4 +1,4 @@
-# Portfolio
+# Portfolio Project Setup
 
 1. API 설정 :
   - `api/src/main/resources/application.yaml.template`를 복사하여 `application.yaml` 파일을 만듭니다.
