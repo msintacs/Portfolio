@@ -9,6 +9,7 @@ module.exports = {
         "ink-lipquid": ["InkLipquid", "sans-serif"],
         "yg-jalnan": ["yg-jalnan", "sans-serif"],
         "SUIT-Regular": ["SUIT-Regular", "sans-serif"],
+        "SUIT-Heavy": ["SUIT-Heavy", "sans-serif"],
         "Ownglyph_UNZ-Rg": ["Ownglyph_UNZ-Rg", "Ownglyph_UNZ-Rg"],
       },
       fontSize: {
