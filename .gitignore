@@ -1,0 +1,32 @@
+# api
+api/.gradle
+api/build
+api/src/main/resources/application.yaml
+
+# ui
+ui/node_modules
+ui/.env.development
+ui/.env.production
+ui/build
+
+# IDE
+.idea/
+*.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Gradle wrapper
+api/gradlew
+api/gradlew.bat
+
+# Miscellaneous
+*.class
+*.jar
+*.war
+
+
+# 빌드 출력 디렉토리
+api/out/
+ui/dist/
