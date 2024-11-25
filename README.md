@@ -10,8 +10,9 @@
 
 
 # Project Structure
+```
 src/
-├── components/             # 공통으로 사용되는 컴포넌트
+├── components/                         # 공통으로 사용되는 컴포넌트
 │   ├── Button/
 │   ├── Card/
 │   └── Select/          		
@@ -42,10 +43,11 @@ src/
 │        └── index.js/
 │
 ├── layout/
-│   ├── PortfolioLayout/  	# 포트폴리오 전용 레이아웃
-│   ├── Project1Layout/		  # 프로젝트 페이지용 레이아웃 (최소화된 레이아웃)
+│   ├── PortfolioLayout/  	        # 포트폴리오 전용 레이아웃
+│   ├── Project1Layout/		         
 │   └── Project2Layout/    		
 └──
+```
 
 # Project 1.
 복권 통계 사이트
