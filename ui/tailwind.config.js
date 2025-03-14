@@ -20,11 +20,16 @@ module.exports = {
       animation: {
         slide: "slide 10s linear infinite",
         blink: "blink 1s step-end infinite",
+        bounce: "bounce 1s ease-in-out infinite",
       },
       keyframes: {
         slide: {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-50%)" },
+        },
+        bounce: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(25px)" },
         },
         blink: {
           "0%, 100%": { opacity: 1 },

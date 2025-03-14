@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyBox from "./KeyBox";
 
 const boxes = [
@@ -10,15 +11,21 @@ const boxes = [
   { id: "6" },
 ];
 
-const TEXT = "안녕하세요, 풀스택 개발자 김성봉입니다.";
+const TEXT = "안녕하세요, 개발자 김성봉입니다.";
 
 function HeroSection() {
   const [displayText, setDisplayText] = useState("");
   const [index, setIndex] = useState(0);
   const [selectedBox, setSelectedBox] = useState(null);
+  const [aniEndFlag, setAniEndFlag] = useState(0);
+  const [fadeIn, setFadeIn] = useState(false);
 
   useEffect(() => {
     if (index >= TEXT.length) {
+      setAniEndFlag(1);
+      setTimeout(() => {
+        setFadeIn(true);
+      }, 500);
       return () => {};
     }
 
@@ -40,7 +47,7 @@ function HeroSection() {
   }, [index]);
 
   return (
-    <section className="relative h-screen w-full font-SUIT-Regular">
+    <section className="relative h-screen w-full">
       <div className="flex h-full w-full flex-col items-center justify-center bg-slate-50">
         <div className="relative mb-4 overflow-hidden rounded-lg border-2 border-blue-400 px-3">
           <div className="flex">
@@ -63,6 +70,24 @@ function HeroSection() {
             <span className="animate-blink">|</span>
           </h1>
         </div>
+        {aniEndFlag === 1 && (
+          <>
+            <div
+              className={`mt-4 animate-bounce transition-opacity duration-1000 ease-in ${
+                fadeIn ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <KeyboardArrowDownIcon fontSize="large" />
+            </div>
+            <div
+              className={`mt-6 text-xs text-gray-600 transition-opacity duration-1000 ease-in ${
+                fadeIn ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              아래로 스크롤하기
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
