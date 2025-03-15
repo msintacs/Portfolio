@@ -1,74 +1,105 @@
+import reactImg from "../../../../assets/React.png";
+import HTML5Img from "../../../../assets/HTML5.png";
+import CSS3Img from "../../../../assets/CSS3.png";
+import JavaImg from "../../../../assets/Java.png";
+import SpringBootImg from "../../../../assets/SpringBoot.png";
+import CImg from "../../../../assets/C.png";
+import MySQLImg from "../../../../assets/MySQL.png";
+import OracleImg from "../../../../assets/Oracle.png";
+import MybatisImg from "../../../../assets/MyBatis.png";
+import JPAImg from "../../../../assets/JPA.png";
+import CentOSImg from "../../../../assets/CentOS.png";
+import RockyImg from "../../../../assets/Rocky.png";
+import GithubImg from "../../../../assets/github.svg";
+import VSCodeImg from "../../../../assets/VSCode.png";
+import IntelliJImg from "../../../../assets/IntelliJ.png";
+
 export const skillsData = {
   title: "Skills",
   subTitle: "기술 스택 및 개발 도구",
   frontend: [
     {
+      id: 1,
       title: "HTML5",
-      img: "",
+      img: HTML5Img,
     },
     {
+      id: 2,
       title: "CSS3",
-      img: "",
+      img: CSS3Img,
     },
     {
+      id: 3,
       title: "React",
-      img: "",
+      img: reactImg,
     },
   ],
   backend: [
     {
+      id: 1,
       title: "Java",
-      img: "",
+      img: JavaImg,
     },
     {
+      id: 2,
       title: "Spring Boot",
-      img: "",
+      img: SpringBootImg,
     },
     {
+      id: 3,
       title: "C",
-      img: "",
+      img: CImg,
     },
   ],
   database: [
     {
+      id: 1,
       title: "MySQL",
-      img: "",
+      img: MySQLImg,
     },
     {
+      id: 2,
       title: "Oracle",
-      img: "",
+      img: OracleImg,
     },
     {
+      id: 3,
       title: "Mybatis",
-      img: "",
+      img: MybatisImg,
     },
     {
+      id: 4,
       title: "JPA",
-      img: "",
+      img: JPAImg,
     },
   ],
   server: [
     {
+      id: 1,
       title: "CentOS",
-      img: "",
+      img: CentOSImg,
     },
     {
+      id: 2,
       title: "Rocky",
-      img: "",
+      img: RockyImg,
     },
   ],
   tools: [
     {
+      id: 1,
       title: "Github",
-      img: "",
+      img: GithubImg,
     },
     {
+      id: 2,
       title: "VSCode",
-      img: "",
+      img: VSCodeImg,
     },
     {
+      id: 3,
       title: "IntelliJ",
-      img: "",
+      img: IntelliJImg,
     },
   ],
 };
