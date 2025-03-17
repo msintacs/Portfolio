@@ -1,5 +1,5 @@
 import React from "react";
-import gitSvg from "../../../../assets/github.svg";
+import gitSvg from "../../../../assets/Portfolio/github.svg";
 import { aboutMeData } from "./AboutMeData";
 
 function AboutMe() {
