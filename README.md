@@ -29,16 +29,16 @@ src/
 │   │   └── index.js
 │   │
 │   └── project 1/       		# 독립적인 프로젝트 페이지들
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── utils/
+│   │   ├── context/
+│   │   ├── page/
+│   │   ├── share/
 │   │   ├── Project1.jsx/
 │   │   └── index.js/
 │   │
 │   └── project 2/       		
-│        ├── components/
-│        ├── hooks/
-│        ├── utils/
+│        ├── context/
+│        ├── page/
+│        ├── share/
 │        ├── Project2.jsx/
 │        └── index.js/
 │
