@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Portfolio } from "./pages/portfolio";
-import { LottoStats } from "./pages/P1_lottoStats";
+import { Portfolio } from "./features/portfolio/pages";
+import { LottoStats } from "./features/lottoStats/pages";
 
 /*
   구성 내용 : 페이지 라우팅

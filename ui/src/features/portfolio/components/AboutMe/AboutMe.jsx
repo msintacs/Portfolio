@@ -1,5 +1,5 @@
 import React from "react";
-import gitSvg from "../../../../assets/Portfolio/github.svg";
+import gitSvg from "../../assets/github.svg";
 import { aboutMeData } from "./AboutMeData";
 
 function AboutMe() {
@@ -19,7 +19,7 @@ function AboutMe() {
 
         <div className="gird-cols-1 grid gap-8 md:grid-cols-2">
           {/** 왼쪽 영역 */}
-          <div>
+          <div className="md:item flex flex-col items-center">
             <div className="h-[250px] w-[200px] bg-black" />
             <div className="mt-[60px]">
               <p className="mb-5 text-[14px]">{aboutMeData.description[0]}</p>

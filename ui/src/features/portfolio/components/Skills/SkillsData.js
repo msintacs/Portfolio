@@ -1,18 +1,19 @@
-import reactImg from "../../../../assets/Portfolio/React.png";
-import HTML5Img from "../../../../assets/Portfolio/HTML5.png";
-import CSS3Img from "../../../../assets/Portfolio/CSS3.png";
-import JavaImg from "../../../../assets/Portfolio/Java.png";
-import SpringBootImg from "../../../../assets/Portfolio/SpringBoot.png";
-import CImg from "../../../../assets/Portfolio/C.png";
-import MySQLImg from "../../../../assets/Portfolio/MySQL.png";
-import OracleImg from "../../../../assets/Portfolio/Oracle.png";
-import MybatisImg from "../../../../assets/Portfolio/MyBatis.png";
-import JPAImg from "../../../../assets/Portfolio/JPA.png";
-import CentOSImg from "../../../../assets/Portfolio/CentOS.png";
-import RockyImg from "../../../../assets/Portfolio/Rocky.png";
-import GithubImg from "../../../../assets/Portfolio/github.svg";
-import VSCodeImg from "../../../../assets/Portfolio/VSCode.png";
-import IntelliJImg from "../../../../assets/Portfolio/IntelliJ.png";
+import reactImg from "../../assets/React.png";
+import HTML5Img from "../../assets/HTML5.png";
+import CSS3Img from "../../assets/CSS3.png";
+import JavaImg from "../../assets/Java.png";
+import SpringBootImg from "../../assets/SpringBoot.png";
+import CImg from "../../assets/C.png";
+import MySQLImg from "../../assets/MySQL.png";
+import OracleImg from "../../assets/Oracle.png";
+import MybatisImg from "../../assets/MyBatis.png";
+import JPAImg from "../../assets/JPA.png";
+import CentOSImg from "../../assets/CentOS.png";
+import RockyImg from "../../assets/Rocky.png";
+import GithubImg from "../../assets/github.svg";
+import VSCodeImg from "../../assets/VSCode.png";
+import IntelliJImg from "../../assets/IntelliJ.png";
+import TailwindCSSImg from "../../assets/TailwindCSS.png";
 
 export const skillsData = {
   title: "Skills",
@@ -32,6 +33,11 @@ export const skillsData = {
       id: 3,
       title: "React",
       img: reactImg,
+    },
+    {
+      id: 4,
+      title: "TailwindCSS",
+      img: TailwindCSSImg,
     },
   ],
   backend: [

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Sidebar } from "./page/Sidebar";
-import Header from "./page/Header";
-import { LottoProvider } from "./context/LottoStatsContext";
+import { Sidebar } from "../components/Sidebar";
+import Header from "../components/Header";
+import { LottoProvider } from "../context/LottoStatsContext";
 
 /**
  * @returns 프로젝트1(Lotto) 최상위 컴포넌트로 하위 요소 return

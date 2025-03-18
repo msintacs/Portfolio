@@ -1,7 +1,7 @@
 import React from "react";
 import CustomSelect from "../../share/CustomSelect";
-import Lotto645Img from "../../../../assets/LottoStats/645-main.png";
-import Lotto720Img from "../../../../assets/LottoStats/720-main.png";
+import Lotto645Img from "../../assets/645-main.png";
+import Lotto720Img from "../../assets/720-main.png";
 import { useLottoContext } from "../../context/LottoStatsContext";
 
 /**
