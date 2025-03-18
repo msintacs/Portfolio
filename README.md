@@ -12,41 +12,32 @@
 # Project Structure
 ```
 src/
-├── components/                         # 공통으로 사용되는 컴포넌트
-│   ├── Button/
-│   ├── Card/
-│   └── Select/          		
-│
-├── pages/               
-│   ├── portfolio/       		# 메인 포트폴리오 페이지들
+├── features/
+│   ├── portfolio/
+│   │   ├── assets/
 │   │   ├── components/
-│   │   │   ├── Header.jsx
-│   │   │   └── Footer.jsx
-│   │   │
-│   │   ├── hooks/
-│   │   ├── utils/
-│   │   ├── portfolio.jsx
-│   │   └── index.js
+│   │   │   ├── AboutMe/
+│   │   │   ├── HeroSection/
+│   │   │   ├── Skills/
+│   │   │   └── Projects/
+│   │   ├── pages/
+│   │   │   ├── Portfolio.jsx
+│   │   │   └── index.js
+│   │   └
 │   │
-│   └── project 1/       		# 독립적인 프로젝트 페이지들
-│   │   ├── context/
-│   │   ├── page/
-│   │   ├── share/
-│   │   ├── Project1.jsx/
-│   │   └── index.js/
-│   │
-│   └── project 2/       		
-│        ├── context/
-│        ├── page/
-│        ├── share/
-│        ├── Project2.jsx/
-│        └── index.js/
-│
-├── layout/
-│   ├── PortfolioLayout/  	        # 포트폴리오 전용 레이아웃
-│   ├── Project1Layout/		         
-│   └── Project2Layout/    		
-└──
+│   └── lottoStats/
+│       ├── assets/
+│       ├── components/
+│       │   ├── Dashboard/
+│       │   ├── Sidebar/
+│       │   └── Header.jsx
+│       ├── context/
+│       ├── pages/
+│       │   ├── LottoStats.jsx
+│       │   └── index.js
+│       ├── share/
+│       └
+└
 ```
 
 # Project 1.
