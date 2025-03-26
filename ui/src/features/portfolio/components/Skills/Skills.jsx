@@ -5,7 +5,7 @@ import SkillCards from "./SkillCards";
 function Skills() {
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:px-8">
-      <h2 className="mb-2 text-center text-3xl font-bold">
+      <h2 className="mb-2 text-center font-SUIT-Heavy text-3xl">
         {skillsData.title}
       </h2>
       <p className="mb-10 text-center text-gray-600">{skillsData.subTitle}</p>

@@ -6,14 +6,14 @@ function AboutMe() {
   return (
     <div className="w-full bg-white py-16">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-        <h2 className="mb-2 text-center text-3xl font-bold">
+        <h2 className="mb-2 text-center font-SUIT-Heavy text-3xl">
           {aboutMeData.title}
         </h2>
         <p className="mb-10 text-center text-gray-600">
           {aboutMeData.subTitle}
         </p>
         {/** 강조 문구 */}
-        <p className="text -[17px] my-10 text-center font-bold text-blue-900">
+        <p className="my-10 text-center text-[17px] font-bold text-blue-900">
           &quot;{aboutMeData.quote}&quot;
         </p>
 
@@ -42,8 +42,8 @@ function AboutMe() {
                   <img
                     src={gitSvg}
                     alt="Github SVG"
-                    width="20"
-                    className="mr-3.5"
+                    width="22"
+                    className="mr-2"
                   />
                   <span className="mr-2">:</span>
                   <a

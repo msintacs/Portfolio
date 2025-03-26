@@ -37,6 +37,7 @@ module.exports = {
     ],
     "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
     "react/prop-types": "off",
+    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
   },
   settings: {
     react: {
