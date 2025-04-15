@@ -28,7 +28,7 @@ src/
 │   └── lottoStats/
 │       ├── assets/
 │       ├── components/
-│       │   ├── Dashboard/
+│       │   ├── DashboardMain/
 │       │   ├── Sidebar/
 │       │   └── Header.jsx
 │       ├── context/
