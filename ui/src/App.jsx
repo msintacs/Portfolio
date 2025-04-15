@@ -5,6 +5,9 @@ import { Portfolio } from "./features/portfolio/pages";
 
 import { LottoStats } from "./features/lottoStats/pages";
 import { Dashboard } from "./features/lottoStats/components/Dashboard";
+import DashboardRep1 from "./features/lottoStats/components/Dashboard/DashboardRep1";
+import DashboardRep2 from "./features/lottoStats/components/Dashboard/DashboardRep2";
+import DashboardRep3 from "./features/lottoStats/components/Dashboard/DashboardRep3";
 
 /*
   구성 내용 : 페이지 라우팅
@@ -19,6 +22,9 @@ function App() {
         {/* Project. 1 */}
         <Route path="/lotto" element={<LottoStats />}>
           <Route index element={<Dashboard />} />
+          <Route path="rep1" element={<DashboardRep1 />} />
+          <Route path="rep2" element={<DashboardRep2 />} />
+          <Route path="rep3" element={<DashboardRep3 />} />
         </Route>
       </Routes>
     </BrowserRouter>
