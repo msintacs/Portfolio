@@ -9,9 +9,7 @@ function Portfolio() {
     <main className="font-SUIT-Regular text-gray-900">
       <HeroSection />
       <AboutMe />
-      <div className="mx-auto mb-16 w-40 border-t" />
       <Skills />
-      <div className="mx-auto mb-16 w-40 border-t" />
       <Projects />
     </main>
   );

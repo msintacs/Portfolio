@@ -23,7 +23,7 @@ function Projects() {
   };
 
   return (
-    <div className="my-20 w-full bg-gray-50">
+    <div className="w-full bg-gray-50 py-20">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         <p className="mb-3 text-center font-medium text-blue-600">PORTFOLIO</p>
         <h2 className="mb-2 text-center font-SUIT-Heavy text-3xl">
@@ -105,7 +105,8 @@ function Projects() {
               )}
               {selectedProject.codeLink && (
                 <a
-                  href="_blank"
+                  href={selectedProject.codeLink}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center rounded-lg bg-gray-100 px-6 py-3 text-gray-800 transition-all hover:bg-gray-200"
                 >

@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import React, { useState, useEffect } from "react";
+import WinningNumbers from "./WinningNumbers";
 // import { useLottoContext } from '../context/LottoStatsContext'; // 이 컴포넌트를 언제 보여줄지 결정하기 위해 필요할 수 있습니다.
 
 // --- 연금복권 관련 Helper 컴포넌트 ---
@@ -28,7 +29,7 @@ const formatSixDigits = (digits) => {
  * 연금복권 720+ 용 대시보드 컴포넌트 (Tailwind CSS 위주)
  * 파일명 예시: DashboardPension.jsx
  */
-function Dashboard720() {
+function Dashboard720({ lottoKind }) {
   // const { selectValue } = useLottoContext(); // 이 값이 2일 때 이 컴포넌트가 렌더링되어야 함
 
   // --- 상태 관리 (연금복권용 예시 데이터) ---
@@ -215,6 +216,7 @@ function Dashboard720() {
       </div>
 
       {/* 여기에 연금복권 관련 통계 차트나 다른 위젯들을 추가할 수 있습니다. */}
+      <WinningNumbers lottoKind={lottoKind} />
     </div>
   );
 }

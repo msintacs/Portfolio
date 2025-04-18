@@ -16,8 +16,7 @@ export const projectsData = {
       description:
         "본 프로젝트는 React / SpringBoot / Tailwind CSS 기술을 활용하여 개발되었습니다. 프론트엔드와 백엔드를 연결하는 RESTful API 를 구현하였습니다.",
       demoLink: "/lotto",
-      codeLink:
-        "https://github.com/msintacs/Portfolio/tree/main/ui/src/features/lottoStats",
+      codeLink: "https://github.com/msintacs/Portfolio",
     },
     {
       id: 2,

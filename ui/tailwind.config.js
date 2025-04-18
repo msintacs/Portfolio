@@ -5,6 +5,9 @@ module.exports = {
       colors: {
         "custom-blue": "#1d809f",
       },
+      screens: {
+        "3xl": "1920px",
+      },
       fontFamily: {
         "ink-lipquid": ["InkLipquid", "sans-serif"],
         "yg-jalnan": ["yg-jalnan", "sans-serif"],
@@ -38,6 +41,9 @@ module.exports = {
       },
       backgroundImage: {
         "custom-gradient": "linear-gradient(45deg, #ff00cc, #3333ff)",
+      },
+      maxWidth: {
+        "8xl": "90rem",
       },
     },
   },
