@@ -4,10 +4,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Portfolio } from "./features/portfolio/pages";
 
 import { LottoStats } from "./features/lottoStats/pages";
-import { Dashboard } from "./features/lottoStats/components/Dashboard";
-import DashboardRep1 from "./features/lottoStats/components/Dashboard/DashboardRep1";
-import DashboardRep2 from "./features/lottoStats/components/Dashboard/DashboardRep2";
-import DashboardRep3 from "./features/lottoStats/components/Dashboard/DashboardRep3";
+import { Dashboard } from "./features/lottoStats/pages/Dashboard";
+import DashboardRep1 from "./features/lottoStats/pages/Dashboard/DashboardRep1";
+import DashboardRep2 from "./features/lottoStats/pages/Dashboard/DashboardRep2";
+import DashboardRep3 from "./features/lottoStats/pages/Dashboard/DashboardRep3";
 
 /*
   구성 내용 : 페이지 라우팅

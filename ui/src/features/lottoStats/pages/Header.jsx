@@ -35,7 +35,7 @@ function Header({ isSidebarOpen, handleSidebarOnOff }) {
         <div className="text-lg">id</div>
         <button
           type="button"
-          className="mx-5 rounded-2xl bg-gray-50 px-3 py-1 text-sm text-black hover:bg-red-600 hover:text-gray-50"
+          className="me-10 ms-5 rounded-2xl bg-gray-50 px-3 py-1 text-sm text-black hover:bg-red-600 hover:text-gray-50"
         >
           <PowerSettingsNewIcon sx={{ fontSize: "18px" }} />
           <span className="rounded-xl"> LOGOUT </span>

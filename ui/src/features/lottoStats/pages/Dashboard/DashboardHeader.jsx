@@ -1,9 +1,9 @@
 import React from "react";
 
-function DashboardHeader() {
+function DashboardHeader({ reFetch }) {
   return (
     <header>
-      <div className="3xl:max-w-8xl mx-auto max-w-6xl py-6">
+      <div className="mx-auto max-w-6xl py-6 3xl:max-w-8xl">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl">DASHBOARD</h1>
@@ -13,6 +13,7 @@ function DashboardHeader() {
             <button
               type="button"
               className="rounded-full bg-blue-600 px-4 py-2 text-sm text-white backdrop-blur-sm transition hover:bg-blue-700"
+              onClick={reFetch}
             >
               데이터 새로고침
             </button>
