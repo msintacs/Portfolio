@@ -55,4 +55,20 @@ public class DrawLotto {
 
     @Column(name = "FST_INDV_AMT")
     private long fstIndvAmount;
+
+    public DrawLotto(int drawRound, LocalDate drawDate, int num1, int num2, int num3, int num4, int num5, int num6, int bonusNum, long totalSalesAmount, int fstWinCnt, long fstTotalAmount, long fstIndvAmount) {
+        this.drawRound = drawRound;
+        this.drawDate = drawDate;
+        this.num1 = num1;
+        this.num2 = num2;
+        this.num3 = num3;
+        this.num4 = num4;
+        this.num5 = num5;
+        this.num6 = num6;
+        this.bonusNum = bonusNum;
+        this.totalSalesAmount = totalSalesAmount;
+        this.fstWinCnt = fstWinCnt;
+        this.fstTotalAmount = fstTotalAmount;
+        this.fstIndvAmount = fstIndvAmount;
+    }
 }

@@ -3,6 +3,7 @@ package main.api.lotto.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import main.api.lotto.model.DrawLotto;
 
 import java.time.LocalDate;
 
@@ -41,5 +42,21 @@ public class LottoLastWinNumResponseDto {
         this.fstWinCnt = fstWinCnt;
         this.fstTotalAmount = fstTotalAmount;
         this.fstIndvAmount = fstIndvAmount;
+    }
+
+    public LottoLastWinNumResponseDto(DrawLotto drawLotto) {
+        this.drawRound = drawLotto.getDrawRound();
+        this.drawDate = drawLotto.getDrawDate();
+        this.num1 = drawLotto.getNum1();
+        this.num2 = drawLotto.getNum2();
+        this.num3 = drawLotto.getNum3();
+        this.num4 = drawLotto.getNum4();
+        this.num5 = drawLotto.getNum5();
+        this.num6 = drawLotto.getNum6();
+        this.bonusNum = drawLotto.getBonusNum();
+        this.totalSalesAmount = drawLotto.getTotalSalesAmount();
+        this.fstWinCnt = drawLotto.getFstWinCnt();
+        this.fstTotalAmount = drawLotto.getFstTotalAmount();
+        this.fstIndvAmount = drawLotto.getFstIndvAmount();
     }
 }

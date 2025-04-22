@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -30,5 +32,21 @@ public class LottoController {
 
         log.debug("{} ResponseDto: {}", "getLottoLastWinNum()", responseDto.toString());
         return Response.of(200, "success", "results", responseDto);
+    }
+
+    /* 과거 당첨 내역 조회 (최신 회차 제외 근 3회차) */
+    @GetMapping("/recent")
+    public Response getLottoRecentWinNum() {
+
+        List<LottoLastWinNumResponseDto> responseDtos = lottoService.getLottoRecentWinNum();
+
+        if (responseDtos == null) {
+            return Response.of(404, "No Data");
+        }
+
+        for (LottoLastWinNumResponseDto dto : responseDtos) {
+            log.debug("{} ResponseDto: {}", "getLottoLastWinNum()", dto.toString());
+        }
+        return Response.of(200, "success", "results", responseDtos);
     }
 }
