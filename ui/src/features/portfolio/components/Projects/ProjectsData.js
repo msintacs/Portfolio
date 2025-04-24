@@ -1,4 +1,5 @@
 import LottoMainPageImg from "../../assets/lotto-main.png";
+import FtpClientImg from "../../assets/ftpClient.png";
 
 export const projectsData = {
   title: "Projects",
@@ -22,7 +23,7 @@ export const projectsData = {
       id: 2,
       title: "C FTP Client",
       isSelected: false,
-      image: "/api/placeholder/400/200",
+      image: FtpClientImg,
       technologies: ["C"],
       summary: "C 기반의 FTP 프로토콜을 이용한 FTP CLI 클라이언트 프로그램",
       features: [

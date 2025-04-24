@@ -3,7 +3,8 @@ package main.api.lotto.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import main.api.common.Response;
-import main.api.lotto.dto.LottoLastWinNumResponseDto;
+import main.api.lotto.dto.LottoWinNumResponseDto;
+import main.api.lotto.dto.LottoWinTop10ResponseDto;
 import main.api.lotto.service.LottoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +21,24 @@ public class LottoController {
 
     private final LottoService lottoService;
 
+    /* 전체 데이터 */
+    @GetMapping("")
+    public Response getAllLotto() {
+
+        List<LottoWinNumResponseDto> responseDtos = lottoService.getAllLotto();
+
+        if (responseDtos.isEmpty()) {
+            return Response.of(404, "No Data");
+        }
+
+        return Response.of(200, "success", "results", responseDtos);
+    }
+
     /* 최신 회차 로또 번호 조회 */
     @GetMapping("/last")
     public Response getLottoLastWinNum() {
 
-        LottoLastWinNumResponseDto responseDto = lottoService.getLottoLastWinNum();
+        LottoWinNumResponseDto responseDto = lottoService.getLottoLastWinNum();
 
         if (responseDto == null) {
             return Response.of(404, "No Data");
@@ -38,15 +52,27 @@ public class LottoController {
     @GetMapping("/recent")
     public Response getLottoRecentWinNum() {
 
-        List<LottoLastWinNumResponseDto> responseDtos = lottoService.getLottoRecentWinNum();
+        List<LottoWinNumResponseDto> responseDtos = lottoService.getLottoRecentWinNum();
 
-        if (responseDtos == null) {
+        if (responseDtos.isEmpty()) {
             return Response.of(404, "No Data");
         }
 
-        for (LottoLastWinNumResponseDto dto : responseDtos) {
+        for (LottoWinNumResponseDto dto : responseDtos) {
             log.debug("{} ResponseDto: {}", "getLottoLastWinNum()", dto.toString());
         }
+        return Response.of(200, "success", "results", responseDtos);
+    }
+
+    /* 번호별 당첨 빈도 TOP 10 */
+    @GetMapping("/top10")
+    public Response getLottoTop10() {
+        List<LottoWinTop10ResponseDto> responseDtos = lottoService.getLottoTop10();
+
+        if (responseDtos.isEmpty()) {
+            return Response.of(404, "No Data");
+        }
+
         return Response.of(200, "success", "results", responseDtos);
     }
 }

@@ -5,7 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import main.api.lotto.dto.LottoApiResponseDto;
-import main.api.lotto.dto.LottoLastWinNumResponseDto;
+import main.api.lotto.dto.LottoWinNumResponseDto;
+import main.api.lotto.dto.LottoWinTop10ResponseDto;
 import main.api.lotto.model.DrawLotto;
 import main.api.lotto.repository.LottoRepository;
 import org.jsoup.Jsoup;
@@ -23,7 +24,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,13 +43,17 @@ public class LottoService {
     private static final String CRAWLING_URL = "https://dhlottery.co.kr/common.do?method=main";
     private static final String LATEST_ROUND_SELECTOR = "strong#lottoDrwNo";
 
-    public LottoLastWinNumResponseDto getLottoLastWinNum() {
+    public List<LottoWinNumResponseDto> getAllLotto() {
+        return null;
+    }
+
+    public LottoWinNumResponseDto getLottoLastWinNum() {
         int drawRound = getLottoRoundCrawling();
         Optional<DrawLotto> optionalDrawLotto = lottoRepository.findById(drawRound);
 
         // 이미 DB에 존재할 경우, 바로 반환
         if (optionalDrawLotto.isPresent()) {
-            return new LottoLastWinNumResponseDto(optionalDrawLotto.get());
+            return new LottoWinNumResponseDto(optionalDrawLotto.get());
         }
 
         // API 요청
@@ -104,7 +108,7 @@ public class LottoService {
             log.info("DrawLotto Saved, drawRound=[{}]", drawLottoToSave.getDrawRound());
 
             // 리턴 DTO 반환
-            return new LottoLastWinNumResponseDto(drawLottoToSave);
+            return new LottoWinNumResponseDto(drawLottoToSave);
 
         } catch (Exception e) {
             log.error("{} API Request Failed drawRound=[{}]", "getLottoLastWinNum()", drawRound, e);
@@ -113,12 +117,12 @@ public class LottoService {
     }
 
 
-    public List<LottoLastWinNumResponseDto> getLottoRecentWinNum() {
+    public List<LottoWinNumResponseDto> getLottoRecentWinNum() {
 
         Pageable pageable = PageRequest.of(0, 4, Sort.by(Sort.Direction.DESC, "drawRound"));
         Page<DrawLotto> pageResult = lottoRepository.findRecentExcludingFirstOrderByIdxDesc(pageable);
         List<DrawLotto> drawLottos = pageResult.getContent();
-        List<LottoLastWinNumResponseDto> responseDtos = drawLottos.stream().skip(1).map(data -> new LottoLastWinNumResponseDto(data)).collect(Collectors.toList());
+        List<LottoWinNumResponseDto> responseDtos = drawLottos.stream().skip(1).map(data -> new LottoWinNumResponseDto(data)).collect(Collectors.toList());
 
         return responseDtos;
     }
@@ -153,5 +157,10 @@ public class LottoService {
         }
 
         return drawRound;
+    }
+
+    /* 번호별 당첨 빈도 TOP 10 */
+    public List<LottoWinTop10ResponseDto> getLottoTop10() {
+        return lottoRepository.findTop10Lotto();
     }
 }

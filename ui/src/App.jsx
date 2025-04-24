@@ -5,9 +5,9 @@ import { Portfolio } from "./features/portfolio/pages";
 
 import { LottoStats } from "./features/lottoStats/pages";
 import { Dashboard } from "./features/lottoStats/pages/Dashboard";
-import DashboardRep1 from "./features/lottoStats/pages/Dashboard/DashboardRep1";
-import DashboardRep2 from "./features/lottoStats/pages/Dashboard/DashboardRep2";
-import DashboardRep3 from "./features/lottoStats/pages/Dashboard/DashboardRep3";
+import DashboardRep1 from "./features/lottoStats/pages/Dashboard/tmp/DashboardRep1";
+import DashboardRep2 from "./features/lottoStats/pages/Dashboard/tmp/DashboardRep2";
+import DashboardRep3 from "./features/lottoStats/pages/Dashboard/tmp/DashboardRep3";
 
 /*
   구성 내용 : 페이지 라우팅

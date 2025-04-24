@@ -21,8 +21,8 @@ import { convertNumtoArray, printNumbers } from "../../utils/numUtils";
      fstWinCnt: 13
  }
  */
-function WinningNumbers({ results, lottoKind }) {
-  if (!results) {
+function WinningNumbers({ loading, lottoData }) {
+  if (loading) {
     return (
       <div className="mx-auto flex max-w-6xl items-center justify-center 3xl:max-w-8xl">
         <CircularProgress />
@@ -30,26 +30,24 @@ function WinningNumbers({ results, lottoKind }) {
     );
   }
 
-  console.log("results: ", results);
-
   const totalSalesAmount =
-    results.totalSalesAmount.toLocaleString("ko-KR") || "정보없음";
+    lottoData.totalSalesAmount.toLocaleString("ko-KR") || "정보없음";
 
-  const fstWinCnt = results.fstWinCnt || 0;
+  const fstWinCnt = lottoData.fstWinCnt || 0;
 
   const fstIndvAmount =
-    results.fstIndvAmount.toLocaleString("ko-KR") || "정보없음";
+    lottoData.fstIndvAmount.toLocaleString("ko-KR") || "정보없음";
 
   const mainNumbers = convertNumtoArray(
-    results.num1,
-    results.num2,
-    results.num3,
-    results.num4,
-    results.num5,
-    results.num6
+    lottoData.num1,
+    lottoData.num2,
+    lottoData.num3,
+    lottoData.num4,
+    lottoData.num5,
+    lottoData.num6
   );
 
-  const bonusNumber = results.bonusNum;
+  const bonusNumber = lottoData.bonusNum;
 
   return (
     <div className="mx-auto max-w-6xl 3xl:max-w-8xl">
@@ -57,7 +55,7 @@ function WinningNumbers({ results, lottoKind }) {
         <TextBox>
           <p className="pb-7 text-sm font-medium text-gray-500">
             최신 회차 당첨 번호
-            <span className="ps-3">({results.drawDate})</span>
+            <span className="ps-3">({lottoData.drawDate})</span>
           </p>
           <div className="flex items-center">
             <div className="flex items-center space-x-2">

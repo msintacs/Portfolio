@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @ToString
-public class LottoLastWinNumResponseDto {
+public class LottoWinNumResponseDto {
 
     private int drawRound;
     private LocalDate drawDate;
@@ -28,7 +28,7 @@ public class LottoLastWinNumResponseDto {
     private long fstTotalAmount;
     private long fstIndvAmount;
 
-    public LottoLastWinNumResponseDto(int drawRound, LocalDate drawDate, int num1, int num2, int num3, int num4, int num5, int num6, int bonusNum, long totalSalesAmount, int fstWinCnt, long fstTotalAmount, long fstIndvAmount) {
+    public LottoWinNumResponseDto(int drawRound, LocalDate drawDate, int num1, int num2, int num3, int num4, int num5, int num6, int bonusNum, long totalSalesAmount, int fstWinCnt, long fstTotalAmount, long fstIndvAmount) {
         this.drawRound = drawRound;
         this.drawDate = drawDate;
         this.num1 = num1;
@@ -44,7 +44,7 @@ public class LottoLastWinNumResponseDto {
         this.fstIndvAmount = fstIndvAmount;
     }
 
-    public LottoLastWinNumResponseDto(DrawLotto drawLotto) {
+    public LottoWinNumResponseDto(DrawLotto drawLotto) {
         this.drawRound = drawLotto.getDrawRound();
         this.drawDate = drawLotto.getDrawDate();
         this.num1 = drawLotto.getNum1();

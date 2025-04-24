@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
-import OverviewContent from "./OverviewContent";
-import StatContent from "./StatContent";
+import OverviewContent from "./Overview/OverviewContent";
+import StatContent from "./Stat/StatContent";
 
 const tabs = [
   { key: "overview", label: "개요" },
   { key: "stat", label: "상세 통계" },
 ];
 
-function DashboardTab({ recentData }) {
+function DashboardTab() {
   const [activeTab, setActiveTab] = useState("overview");
 
   return (
@@ -32,11 +32,7 @@ function DashboardTab({ recentData }) {
         </div>
 
         {/* 개요 컨텐츠 */}
-        {activeTab === "overview" ? (
-          <OverviewContent recentData={recentData} />
-        ) : (
-          <StatContent />
-        )}
+        {activeTab === "overview" ? <OverviewContent /> : <StatContent />}
       </div>
     </div>
   );

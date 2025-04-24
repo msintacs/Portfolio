@@ -1,5 +1,8 @@
 import React from "react";
-import { convertNumtoArray, printNumbers } from "../../utils/numUtils";
+import CircularProgress from "@mui/material/CircularProgress";
+import useAsync from "../../../../../hooks/useAsync";
+import { getRecentWinNum } from "../../../service/Lotto";
+import { convertNumtoArray, printNumbers } from "../../../utils/numUtils";
 
 /*
 API 응답 구조
@@ -19,12 +22,24 @@ results: {
     totalSalesAmount: 118762131000
 }
 */
+function RecentWinNumTable() {
+  /* 최근 로또 번호를 제외한 근 3주치 데이터 */
+  const { loading, data } = useAsync(getRecentWinNum, []);
 
-function OverviewContent({ recentData }) {
+  const recentData = data?.data?.results;
+
+  if (loading) {
+    return (
+      <div className="mx-auto flex max-w-6xl items-center justify-center 3xl:max-w-8xl">
+        <CircularProgress />
+      </div>
+    );
+  }
+
   const theads = ["회차", "추첨일", "당첨 번호", "보너스 번호"];
 
   return (
-    <div className="p-6">
+    <div>
       <h2 className="mb-4 text-lg font-semibold text-gray-800">
         최근 당첨 번호
       </h2>
@@ -44,26 +59,26 @@ function OverviewContent({ recentData }) {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
-            {recentData.map((data) => (
-              <tr key={data.drawRound}>
+            {recentData.map((item) => (
+              <tr key={item.drawRound}>
                 <td className="whitespace-nowrap px-4 py-4 text-sm font-medium text-indigo-600">
-                  {data.drawRound}
+                  {item.drawRound}
                 </td>
                 <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-500">
-                  {data.drawDate}
+                  {item.drawDate}
                 </td>
                 <td className="flex space-x-1 whitespace-nowrap px-4 py-4 text-sm text-white">
                   {convertNumtoArray(
-                    data.num1,
-                    data.num2,
-                    data.num3,
-                    data.num4,
-                    data.num5,
-                    data.num6
+                    item.num1,
+                    item.num2,
+                    item.num3,
+                    item.num4,
+                    item.num5,
+                    item.num6
                   )?.map((num) => printNumbers(num))}
                 </td>
                 <td className="whitespace-nowrap px-4 py-4 text-sm text-white">
-                  {printNumbers(data.bonusNum)}
+                  {printNumbers(item.bonusNum)}
                 </td>
               </tr>
             ))}
@@ -74,4 +89,4 @@ function OverviewContent({ recentData }) {
   );
 }
 
-export default OverviewContent;
+export default RecentWinNumTable;
