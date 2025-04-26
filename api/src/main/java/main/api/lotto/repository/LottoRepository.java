@@ -14,4 +14,7 @@ public interface LottoRepository extends JpaRepository<DrawLotto, Integer>, Cust
     @Query("SELECT e FROM DrawLotto e")
     Page<DrawLotto> findRecentExcludingFirstOrderByIdxDesc(Pageable pageable);
 
+    // DB에 해당 회차가 존재하는지 여부 확인
+    boolean existsByDrawRound(int drawRound);
+
 }

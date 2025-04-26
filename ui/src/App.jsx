@@ -8,6 +8,7 @@ import { Dashboard } from "./features/lottoStats/pages/Dashboard";
 import DashboardRep1 from "./features/lottoStats/pages/Dashboard/tmp/DashboardRep1";
 import DashboardRep2 from "./features/lottoStats/pages/Dashboard/tmp/DashboardRep2";
 import DashboardRep3 from "./features/lottoStats/pages/Dashboard/tmp/DashboardRep3";
+import NoData from "./common/NoData";
 
 /*
   구성 내용 : 페이지 라우팅
@@ -25,6 +26,9 @@ function App() {
           <Route path="rep1" element={<DashboardRep1 />} />
           <Route path="rep2" element={<DashboardRep2 />} />
           <Route path="rep3" element={<DashboardRep3 />} />
+
+          {/* 임시 라우팅 - NoData */}
+          <Route path="comming-soon" element={<NoData />} />
         </Route>
       </Routes>
     </BrowserRouter>

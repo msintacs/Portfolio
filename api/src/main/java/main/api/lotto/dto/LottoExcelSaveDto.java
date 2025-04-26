@@ -9,11 +9,11 @@ import lombok.ToString;
 @ToString
 public class LottoExcelSaveDto {
 
-    private final int TOTLA_SALES_AMOUNT = 0;
-    private final int FST_TOTLA_AMOUNT = 1;
+    private static final int TOTLA_SALES_AMOUNT = 0;
+    private static final int FST_TOTAL_AMOUNT = 1;
 
     private int drawRound;
-    private String drawData;
+    private String drawDate;
 
     private int num1;
     private int num2;
@@ -33,19 +33,29 @@ public class LottoExcelSaveDto {
     private int secWinCnt;
     private long secIndvAmount;
 
-    private int thrdCnt;
+    private int thrdWinCnt;
     private long thrdIndvAmount;
 
-    private int fourthCnt;
+    private int fourthWinCnt;
     private long fourthIndvAmount;
 
-    private int fifthCnt;
+    private int fifthWinCnt;
     private long fifthIndvAmount;
 
-    public LottoExcelSaveDto(int drawRound, String drawData, int num1, int num2, int num3, int num4, int num5, int num6, int bonusNum, int fstWinCnt, long fstIndvAmount, int secWinCnt, int secIndvAmount, int thrdCnt, int thrdIndvAmount, int fourthCnt, int fourthIndvAmount, int fifthCnt, int fifthIndvAmount) {
+    public LottoExcelSaveDto(int drawRound, String drawDate, int num1, int num2, int num3, int num4, int num5, int num6, int bonusNum, int fstWinCnt, long fstIndvAmount, int secWinCnt, long secIndvAmount, int thrdWinCnt, long thrdIndvAmount, int fourthWinCnt, long fourthIndvAmount, int fifthWinCnt, long fifthIndvAmount) {
+        // 계산용 필드
+        this.secWinCnt = secWinCnt;
+        this.secIndvAmount = secIndvAmount;
+        this.thrdWinCnt = thrdWinCnt;
+        this.thrdIndvAmount = thrdIndvAmount;
+        this.fourthWinCnt = fourthWinCnt;
+        this.fourthIndvAmount = fourthIndvAmount;
+        this.fifthWinCnt = fifthWinCnt;
+        this.fifthIndvAmount = fifthIndvAmount;
+
         // DB 저장용 필드
         this.drawRound = drawRound;
-        this.drawData = drawData;
+        this.drawDate = drawDate;
         this.num1 = num1;
         this.num2 = num2;
         this.num3 = num3;
@@ -53,20 +63,10 @@ public class LottoExcelSaveDto {
         this.num5 = num5;
         this.num6 = num6;
         this.bonusNum = bonusNum;
-        this.totalSalesAmount = calcAmount(TOTLA_SALES_AMOUNT);
         this.fstWinCnt = fstWinCnt;
-        this.fstTotalAmount = calcAmount(FST_TOTLA_AMOUNT);
         this.fstIndvAmount = fstIndvAmount;
-
-        // 계산용 필드
-        this.secWinCnt = secWinCnt;
-        this.secIndvAmount = secIndvAmount;
-        this.thrdCnt = thrdCnt;
-        this.thrdIndvAmount = thrdIndvAmount;
-        this.fourthCnt = fourthCnt;
-        this.fourthIndvAmount = fourthIndvAmount;
-        this.fifthCnt = fifthCnt;
-        this.fifthIndvAmount = fifthIndvAmount;
+        this.totalSalesAmount = calcAmount(TOTLA_SALES_AMOUNT);
+        this.fstTotalAmount = calcAmount(FST_TOTAL_AMOUNT);
     }
 
     private long calcAmount(int flag) {
@@ -76,11 +76,11 @@ public class LottoExcelSaveDto {
             case TOTLA_SALES_AMOUNT:
                 res = ((this.fstWinCnt * this.fstIndvAmount) +
                       (this.secWinCnt * this.secIndvAmount) +
-                      (this.thrdCnt * this.thrdIndvAmount) +
-                      (this.fourthCnt * this.fourthIndvAmount) +
-                      (this.fifthCnt * this.fifthIndvAmount)) * 2;
+                      (this.thrdWinCnt * this.thrdIndvAmount) +
+                      (this.fourthWinCnt * this.fourthIndvAmount) +
+                      (this.fifthWinCnt * this.fifthIndvAmount)) * 2;
                 return res;
-            case FST_TOTLA_AMOUNT:
+            case FST_TOTAL_AMOUNT:
                 res = this.fstWinCnt * this.fstIndvAmount;
                 return res;
             default:

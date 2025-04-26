@@ -10,26 +10,24 @@ export const menu = [
     menuName: "모니터링",
     icon: <MonitorIcon />,
     subMenu: [
-      { subName: "구매 현황", href: "/" },
-      { subName: "당첨 현황", href: "/lotto/main" },
+      { subName: "구매 현황", href: "/lotto/comming-soon" },
+      { subName: "당첨 현황", href: "/lotto/comming-soon" },
     ],
   },
   {
     menuName: "고객 관리",
     icon: <PeopleAltIcon />,
-    href: "",
-    subMenu: [{ subName: "고객 관리", href: "" }],
+    subMenu: [{ subName: "고객 관리", href: "/lotto/comming-soon" }],
   },
 
   {
     menuName: "통계",
     icon: <QueryStatsIcon />,
-    href: "",
     subMenu: [
-      { subName: "연간 통계", href: "/lotto/stats/year" },
-      { subName: "월간 통계", href: "" },
-      { subName: "고객별 통계", href: "" },
-      { subName: "당첨번호별 통계", href: "" },
+      { subName: "연간 통계", href: "/lotto/comming-soon" },
+      { subName: "월간 통계", href: "/lotto/comming-soon" },
+      { subName: "고객별 통계", href: "/lotto/comming-soon" },
+      { subName: "당첨번호별 통계", href: "/lotto/comming-soon" },
     ],
   },
 ];
