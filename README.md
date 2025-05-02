@@ -34,7 +34,8 @@
 
 | 엑셀 업로드 | 통계 대시보드 |
 |-------------|----------------|
-| (스크린샷) | (스크린샷) |
+| <img src="https://github.com/user-attachments/assets/1b81d1e4-0b6e-486f-969f-0fccdf9930f7" width="400" /> | <img src="https://github.com/user-attachments/assets/77463624-7d2e-4e9a-bb72-53b4fbe1b225" width="400" />|
+
 
 > 👉 실행 중인 사이트: [7imsb.info](https://7imsb.info/lotto)
 
