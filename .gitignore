@@ -2,6 +2,8 @@
 api/.gradle
 api/build
 api/src/main/resources/application.yaml
+api/src/main/resources/application-local.yaml
+api/src/main/resources/application-prod.yaml
 
 # ui
 ui/node_modules

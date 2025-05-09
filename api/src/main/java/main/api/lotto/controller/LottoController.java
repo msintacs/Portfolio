@@ -3,6 +3,7 @@ package main.api.lotto.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import main.api.common.Response;
+import main.api.lotto.dto.LottoNumRangeResponseDto;
 import main.api.lotto.dto.LottoWinNumResponseDto;
 import main.api.lotto.dto.LottoWinTop10ResponseDto;
 import main.api.lotto.service.LottoService;
@@ -68,6 +69,18 @@ public class LottoController {
     @GetMapping("/top10")
     public Response getLottoTop10() {
         List<LottoWinTop10ResponseDto> responseDtos = lottoService.getLottoTop10();
+
+        if (responseDtos.isEmpty()) {
+            return Response.of(404, "No Data");
+        }
+
+        return Response.of(200, "success", "results", responseDtos);
+    }
+
+    /* 번호 대역별 분포 */
+    @GetMapping("/numrange")
+    public Response getNumRangeDistribution() {
+        List<LottoNumRangeResponseDto> responseDtos = lottoService.getNumRangeDistribution();
 
         if (responseDtos.isEmpty()) {
             return Response.of(404, "No Data");

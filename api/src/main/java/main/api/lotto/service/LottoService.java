@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import main.api.lotto.dto.LottoApiResponseDto;
+import main.api.lotto.dto.LottoNumRangeResponseDto;
 import main.api.lotto.dto.LottoWinNumResponseDto;
 import main.api.lotto.dto.LottoWinTop10ResponseDto;
 import main.api.lotto.model.DrawLotto;
@@ -162,5 +163,10 @@ public class LottoService {
     /* 번호별 당첨 빈도 TOP 10 */
     public List<LottoWinTop10ResponseDto> getLottoTop10() {
         return lottoRepository.findTop10Lotto();
+    }
+
+    /* 번호 대역별 */
+    public List<LottoNumRangeResponseDto> getNumRangeDistribution() {
+        return lottoRepository.findNumRangeLotto();
     }
 }

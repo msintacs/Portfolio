@@ -44,7 +44,12 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         // 허용할 출처
-        configuration.setAllowedOriginPatterns(List.of("http://localhost:3001"));
+        configuration.setAllowedOriginPatterns(List.of(
+                "http://localhost:3000",
+                "http://localhost:3001",
+                "http://localhost:3002",
+                "https://7imsb.info"
+        ));
 
         // 허용할 HTTP Method
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));

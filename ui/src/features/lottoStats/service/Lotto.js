@@ -10,6 +10,16 @@ export const getRecentWinNum = async () => {
   return res.data;
 };
 
+export const getTop10Num = async () => {
+  const res = await apiClient.get("/lotto/top10");
+  return res.data;
+};
+
+export const getNumRangeDistribution = async () => {
+  const res = await apiClient.get("/lotto/numrange");
+  return res.data;
+};
+
 export const putExcelWinNum = async (file) => {
   const formData = new FormData();
   formData.append("file", file);

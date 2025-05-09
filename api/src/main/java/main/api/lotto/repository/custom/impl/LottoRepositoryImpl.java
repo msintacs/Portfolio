@@ -3,6 +3,7 @@ package main.api.lotto.repository.custom.impl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import main.api.lotto.dto.LottoNumRangeResponseDto;
 import main.api.lotto.dto.LottoWinTop10ResponseDto;
 import main.api.lotto.model.DrawLotto;
 import main.api.lotto.repository.custom.CustomLottoRepository;
@@ -44,7 +45,7 @@ public class LottoRepositoryImpl extends QuerydslRepositorySupport implements Cu
                      "    SELECT NUM_5 as num FROM DRAW_LOTTO " +
                      "    UNION ALL " +
                      "    SELECT NUM_6 as num FROM DRAW_LOTTO " +
-                     ") as all_numbers " +
+                     ") as allNumbers " +
                      "GROUP BY num " +
                      "ORDER BY frequency DESC, num ASC " +
                      "LIMIT 10";
@@ -60,5 +61,46 @@ public class LottoRepositoryImpl extends QuerydslRepositorySupport implements Cu
         }
 
         return lottoWinTop10ResponseDtos;
+    }
+
+    @Override
+    public List<LottoNumRangeResponseDto> findNumRangeLotto() {
+        String sql = "SELECT " +
+                     "  CASE" +
+                     "    WHEN num BETWEEN 1 AND 10 THEN '1~10' " +
+                     "    WHEN num BETWEEN 11 AND 20 THEN '11~20' " +
+                     "    WHEN num BETWEEN 21 AND 30 THEN '21~30' " +
+                     "    WHEN num BETWEEN 31 AND 40 THEN '31~40' " +
+                     "    WHEN num BETWEEN 41 AND 45 THEN '41~45' " +
+                     "  END AS numRange, " +
+                     "  COUNT(*) AS count " +
+                     "FROM ( " +
+                     "    SELECT NUM_1 AS num FROM DRAW_LOTTO " +
+                     "    UNION ALL " +
+                     "    SELECT NUM_2 AS num FROM DRAW_LOTTO " +
+                     "    UNION ALL " +
+                     "    SELECT NUM_3 AS num FROM DRAW_LOTTO " +
+                     "    UNION ALL " +
+                     "    SELECT NUM_4 AS num FROM DRAW_LOTTO " +
+                     "    UNION ALL " +
+                     "    SELECT NUM_5 AS num FROM DRAW_LOTTO " +
+                     "    UNION ALL " +
+                     "    SELECT NUM_6 AS num FROM DRAW_LOTTO " +
+                     ") AS allNumber " +
+                     "GROUP BY numRange " +
+                     "ORDER BY MIN(num)";
+
+        Query query = entityManager.createNativeQuery(sql);
+        List<Object[]> results = query.getResultList();
+
+        List<LottoNumRangeResponseDto> lottoNumRangeResponseDtos = new ArrayList<>();
+        for (Object[] objects : results) {
+            String numRange = objects[0].toString();
+            Integer count = ((Number) objects[1]).intValue();
+            lottoNumRangeResponseDtos.add(new LottoNumRangeResponseDto(numRange, count));
+        }
+
+        return lottoNumRangeResponseDtos;
+
     }
 }
