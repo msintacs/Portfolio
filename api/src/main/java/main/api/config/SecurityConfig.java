@@ -48,7 +48,7 @@ public class SecurityConfig {
                 "http://localhost:3000",
                 "http://localhost:3001",
                 "http://localhost:3002",
-                "https://7imsb.info"
+                "https://7imsb.info:32443"
         ));
 
         // 허용할 HTTP Method
