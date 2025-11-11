@@ -2,16 +2,16 @@ package main.api.lotto.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import main.api.lotto.dto.LottoExcelSaveDto;
+import main.api.lotto.dto.LottoData;
+import main.api.lotto.exception.LottoDataException;
+import main.api.lotto.exception.LottoFileProcessingException;
 import main.api.lotto.model.DrawLotto;
 import main.api.lotto.repository.LottoRepository;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.Iterator;
@@ -23,270 +23,233 @@ public class LottoExcelFileService {
 
     private final LottoRepository lottoRepository;
 
-    public int excelFileUpload(MultipartFile file) {
+    // 헤더 행 수
+    private static final int HEADER_ROWS_COUNT = 3;
 
-        try {
-            log.debug("Successfully read the Excel file: {}", file.getOriginalFilename());
-            log.debug("Uploaded content type: {}", file.getContentType());
+    /**
+     * 엑셀 파일을 업로드호가 데이터를 처리합니다.
+     * @param file
+     * @return
+     */
+    public int excelFileUpload(MultipartFile file) throws LottoFileProcessingException {
 
-            // InputStream 가져오기
-            InputStream inputStream = file.getInputStream();
+        log.debug("Successfully read Excel file: {}", file.getOriginalFilename());
+        log.debug("Uploaded content type: {}", file.getContentType());
 
-            // InputStream 으로부터 Workbook 객체 생성
-            Workbook workbook = WorkbookFactory.create(inputStream);
+        try (InputStream inputStream = file.getInputStream();
+             Workbook workbook = WorkbookFactory.create(inputStream)) {
 
-            // 시트 가져오기
             Sheet sheet = workbook.getSheetAt(0);
-
-            // 시트의 행(row) 을 순회하기 위한 Iterator 가져오기
             Iterator<Row> rowIterator = sheet.iterator();
 
             // 헤더 스킵
-            for (int i = 0; i < 3; i++) {
-                if (rowIterator.hasNext()) {
-                    rowIterator.next();
-                } else {
-                    log.warn("엑셀 파일의 데이터 시작 행 (4행) 이전에 내용이 끝났습니다.");
-                    workbook.close();
-                    inputStream.close();
-                    return -1;
-                }
+            if (!skipHeaderRows(rowIterator)) {
+                throw new LottoFileProcessingException(String.format("엑셀 파일의 데이터 시작 행 (%d행) 이전에 내용이 끝났습니다.", HEADER_ROWS_COUNT + 1));
             }
 
-            // ---------------- 엑셀 파일 맵핑 Start
-            while (rowIterator.hasNext()) {
+            int processedCount = processRows(rowIterator);
+            log.info("엑셀 파일 업로드 완료: {} 행 처리됨", processedCount);
 
-                Row row = rowIterator.next();
+            return processedCount;
 
-                // 회차 (B열)
-                int drawRound = -1;
-                if (row.getCell(1) != null) {
-                    drawRound = (int) row.getCell(1).getNumericCellValue();
-                } else {
-                    log.warn("Row [{}] : 회차 정보가 없습니다.", row.getRowNum());
-                    return -2;
-                }
-
-                // 추첨일 (C열)
-                String drawDateStr = null;
-                if (row.getCell(2) != null) {
-                    drawDateStr = (String) row.getCell(2).getStringCellValue();
-                    drawDateStr = drawDateStr.replace(".", "-");
-                } else {
-                    log.warn("Row [{}] : 추첨일 정보가 없습니다.", row.getRowNum());
-                    return -2;
-                }
-
-                // 1등 당첨자 수
-                int fstWinCnt = -1;
-                if (row.getCell(3) != null) {
-                    fstWinCnt = (int) row.getCell(3).getNumericCellValue();
-                } else {
-                    log.warn("Row [{}] : 1등 당첨자 수 정보가 없습니다.", row.getRowNum());
-                    return -2;
-                }
-
-                // 1등 개별 당첨 금액
-                long fstIndvAmount = -1;
-                if (row.getCell(4) != null) {
-                    fstIndvAmount = parseMoney(row.getCell(4).getStringCellValue());
-                } else {
-                    log.warn("Row [{}] : 1등 개별 당첨 금액 정보가 없습니다.", row.getRowNum());
-                }
-
-                // 2등 당첨자 수
-                int secWinCnt = -1;
-                if (row.getCell(5) != null) {
-                    secWinCnt = (int) row.getCell(5).getNumericCellValue();
-                } else {
-                    log.warn("Row [{}] : 2등 당첨자 수 정보가 없습니다.", row.getRowNum());
-                    return -2;
-                }
-
-                // 2등 개별 당첨 금액
-                long secIndvAmount = -1;
-                if (row.getCell(6) != null) {
-                    secIndvAmount = parseMoney(row.getCell(6).getStringCellValue());
-                } else {
-                    log.warn("Row [{}] : 2등 개별 당춤 금액 정보가 없습니다.", row.getRowNum());
-                    return -2;
-                }
-
-                // 3등 당첨자 수
-                int thrdWinCnt = -1;
-                if (row.getCell(7) != null) {
-                    thrdWinCnt = (int) row.getCell(7).getNumericCellValue();
-                } else {
-                    log.warn("Row [{}] : 3등 당첨자 수 정보가 없습니다.", row.getRowNum());
-                    return -2;
-                }
-
-                // 3등 개별 당첨 금액
-                long thrdIndvAmount = -1;
-                if (row.getCell(8) != null) {
-                    thrdIndvAmount = parseMoney(row.getCell(8).getStringCellValue());
-                } else {
-                    log.warn("Row [{}] : 3등 개별 당춤 금액 정보가 없습니다.", row.getRowNum());
-                    return -2;
-                }
-
-                // 4등 당첨자 수
-                int fourthWinCnt = -1;
-                if (row.getCell(9) != null) {
-                    fourthWinCnt = (int) row.getCell(9).getNumericCellValue();
-                } else {
-                    log.warn("Row [{}] : 4등 당첨자 수 정보가 없습니다.", row.getRowNum());
-                    return -2;
-                }
-
-                // 4등 개별 당첨 금액
-                long fourthIndvAmount = -1;
-                if (row.getCell(10) != null) {
-                    fourthIndvAmount = parseMoney(row.getCell(10).getStringCellValue());
-                } else {
-                    log.warn("Row [{}] : 4등 개별 당춤 금액 정보가 없습니다.", row.getRowNum());
-                    return -2;
-                }
-
-                // 5등 당첨자 수
-                int fifthWinCnt = -1;
-                if (row.getCell(11) != null) {
-                    fifthWinCnt = (int) row.getCell(11).getNumericCellValue();
-                } else {
-                    log.warn("Row [{}] : 5등 당첨자 수 정보가 없습니다.", row.getRowNum());
-                    return -2;
-                }
-
-                // 5등 개별 당첨 금액
-                long fifthIndvAmount = -1;
-                if (row.getCell(12) != null) {
-                    fifthIndvAmount = parseMoney(row.getCell(12).getStringCellValue());
-                } else {
-                    log.warn("Row [{}] : 5등 개별 당춤 금액 정보가 없습니다.", row.getRowNum());
-                    return -2;
-                }
-
-                // 당첨번호1
-                int num1 = -1;
-                if (row.getCell(13) != null) {
-                    num1 = (int) row.getCell(13).getNumericCellValue();
-                } else {
-                    log.warn("Row [{}] : 당첨번호1 정보가 없습니다.", row.getRowNum());
-                }
-
-                // 당첨번호2
-                int num2 = -1;
-                if (row.getCell(14) != null) {
-                    num2 = (int) row.getCell(14).getNumericCellValue();
-                } else {
-                    log.warn("Row [{}] : 당첨번호2 정보가 없습니다.", row.getRowNum());
-                }
-
-                // 당첨번호3
-                int num3 = -1;
-                if (row.getCell(15) != null) {
-                    num3 = (int) row.getCell(15).getNumericCellValue();
-                } else {
-                    log.warn("Row [{}] : 당첨번호3 정보가 없습니다.", row.getRowNum());
-                }
-
-                // 당첨번호4
-                int num4 = -1;
-                if (row.getCell(16) != null) {
-                    num4 = (int) row.getCell(16).getNumericCellValue();
-                } else {
-                    log.warn("Row [{}] : 당첨번호4 정보가 없습니다.", row.getRowNum());
-                }
-
-                // 당첨번호5
-                int num5 = -1;
-                if (row.getCell(17) != null) {
-                    num5 = (int) row.getCell(17).getNumericCellValue();
-                } else {
-                    log.warn("Row [{}] : 당첨번호5 정보가 없습니다.", row.getRowNum());
-                }
-
-                // 당첨번호6
-                int num6 = -1;
-                if (row.getCell(18) != null) {
-                    num6 = (int) row.getCell(18).getNumericCellValue();
-                } else {
-                    log.warn("Row [{}] : 당첨번호6 정보가 없습니다.", row.getRowNum());
-                }
-
-                // 보너스 번호
-                int bonusNum = -1;
-                if (row.getCell(19) != null) {
-                    bonusNum = (int) row.getCell(19).getNumericCellValue();
-                } else {
-                    log.warn("Row [{}] : 보너스번호 정보가 없습니다.", row.getRowNum());
-                }
-
-
-                // DTO 맵핑
-                LottoExcelSaveDto lottoExcelSaveDto = new LottoExcelSaveDto(
-                        drawRound,
-                        drawDateStr,
-                        num1,
-                        num2,
-                        num3,
-                        num4,
-                        num5,
-                        num6,
-                        bonusNum,
-                        fstWinCnt,
-                        fstIndvAmount,
-                        secWinCnt,
-                        secIndvAmount,
-                        thrdWinCnt,
-                        thrdIndvAmount,
-                        fourthWinCnt,
-                        fourthIndvAmount,
-                        fifthWinCnt,
-                        fifthIndvAmount
-                );
-
-                log.debug("LottoExcelSaveDto = {}", lottoExcelSaveDto.toString());
-
-                // DB 에 해당 회차 정보가 있는지 조회 후 없을 경우 DB 저장
-                if (!lottoRepository.existsByDrawRound(drawRound)) {
-                    DrawLotto drawLotto = new DrawLotto(
-                            lottoExcelSaveDto.getDrawRound(),
-                            LocalDate.parse(lottoExcelSaveDto.getDrawDate()),
-                            lottoExcelSaveDto.getNum1(),
-                            lottoExcelSaveDto.getNum2(),
-                            lottoExcelSaveDto.getNum3(),
-                            lottoExcelSaveDto.getNum4(),
-                            lottoExcelSaveDto.getNum5(),
-                            lottoExcelSaveDto.getNum6(),
-                            lottoExcelSaveDto.getBonusNum(),
-                            lottoExcelSaveDto.getTotalSalesAmount(),
-                            lottoExcelSaveDto.getFstWinCnt(),
-                            lottoExcelSaveDto.getFstTotalAmount(),
-                            lottoExcelSaveDto.getFstIndvAmount()
-                    );
-
-                    lottoRepository.save(drawLotto);
-
-                    log.debug("DrawLotto Saved. Round=[{}]", drawRound);
-                }
-            }
-
-            return 0;
-
-        } catch (IllegalStateException e) {
-            log.error("파싱 오류 (셀 타입 불일치 가능성): {}", e.getMessage());
-            return -1;
-        } catch (Exception e) {
-            log.error("기타 예외: {}", e.getMessage());
-            return -1;
+        } catch (IOException e) {
+            throw new LottoFileProcessingException("파일 처리 중 오류가 발생했습니다", e);
         }
     }
 
-    private long parseMoney(String moneyStr) {
-        if (moneyStr == null || moneyStr.trim().isEmpty()) {
-            return 0L;
+    /**
+     * 헤더 행 건너뛰기
+     * @param rowIterator
+     * @return
+     */
+    private boolean skipHeaderRows(Iterator<Row> rowIterator) {
+        for (int i = 0; i < HEADER_ROWS_COUNT; i++) {
+            if (!rowIterator.hasNext()) {
+                return false;
+            }
+            rowIterator.next();
         }
-        return Long.parseLong(moneyStr.replace(",", "").replace("원", "").trim());
+        return true;
+    }
+
+    /**
+     * 행 데이터 처리
+     * @param rowIterator
+     * @return
+     * @throws LottoDataException
+     */
+    private int processRows(Iterator<Row> rowIterator) {
+        int processedCount = 0;
+        int errorCount = 0;
+
+        while (rowIterator.hasNext()) {
+            Row row = rowIterator.next();
+            try {
+                LottoData lottoData = extractLottoData(row);
+                saveLottoData(lottoData);
+                processedCount++;
+            } catch (LottoDataException e) {
+                errorCount++;
+                log.error("행 [{}]에서 데이터 처리 오류: {}", row.getRowNum(), e.getMessage());
+            }
+        }
+
+        log.info("총 처리 행 수: {}, 성공: {}, 실패: {}", processedCount + errorCount, processedCount, errorCount);
+        return processedCount;
+    }
+
+    /**
+     * 로또 데이터 저장
+     * @param data
+     */
+    private void saveLottoData(LottoData data) {
+        // 이미 존재하는 회차인지 확인
+        if (!lottoRepository.existsById(data.getDrawRound())) {
+
+            DrawLotto drawLotto = new DrawLotto();
+            drawLotto.setDrawRound(data.getDrawRound());
+            drawLotto.setDrawDate(LocalDate.parse(data.getDrawDate()));
+
+            // 당첨 번호 설정
+            if (data.getWinningNumbers() != null && data.getWinningNumbers().length >= 7) {
+                drawLotto.setNum1(data.getWinningNumbers()[0]);
+                drawLotto.setNum2(data.getWinningNumbers()[1]);
+                drawLotto.setNum3(data.getWinningNumbers()[2]);
+                drawLotto.setNum4(data.getWinningNumbers()[3]);
+                drawLotto.setNum5(data.getWinningNumbers()[4]);
+                drawLotto.setNum6(data.getWinningNumbers()[5]);
+                drawLotto.setBonusNum(data.getWinningNumbers()[6]);
+            }
+
+            // 당첨자 정보 설정
+            drawLotto.setFstWinCnt(data.getFirstWinnerCount());
+            drawLotto.setFstIndvAmount(data.getFirstWinAmount());
+            drawLotto.setFstTotalAmount(data.getFirstWinAmount() * data.getFifthWinnerCount());
+
+            lottoRepository.save(drawLotto);
+
+            log.debug("DrawLotto Saved. Round=[{}]", data.getDrawRound());
+        } else {
+            log.debug("DrawLotto Already Exists. Round=[{}]", data.getDrawRound());
+        }
+    }
+
+    /**
+     * 행에서 로또 데이처 추출.
+     * @param row
+     * @return
+     * @throws LottoDataException
+     */
+    private LottoData extractLottoData(Row row) throws LottoDataException, IllegalStateException {
+        LottoData data = new LottoData();
+
+        // 회차 (B열)
+        data.setDrawRound(getIntCellValue(row, 1, "회차"));
+
+        // 추첨일 (C열)
+        data.setDrawDate(getStringCellValueAndFormat(row, 2, "추첨일"));
+
+        // 1등 당첨 정보
+        data.setFirstWinnerCount(getIntCellValue(row, 3, "1등 당첨자 수"));
+        // 👇 try-catch 제거
+        data.setFirstWinAmount(getMoneyValue(row, 4, "1등 개별 당첨 금액", false));
+
+        // 2등 당첨 정보 (모두 required=true 로 변경)
+        data.setSecondWinnerCount(getIntCellValue(row, 5, "2등 당첨자 수", true));
+        data.setSecondWinAmount(getMoneyValue(row, 6, "2등 개별 당첨 금액", true));
+
+        // 3등 당첨 정보 (모두 required=true 로 변경)
+        data.setThirdWinnerCount(getIntCellValue(row, 7, "3등 당첨자 수", true));
+        data.setThirdWinAmount(getMoneyValue(row, 8, "3등 개별 당첨 금액", true));
+
+        // 4등 당첨 정보 (모두 required=true 로 변경)
+        data.setFourthWinnerCount(getIntCellValue(row, 9, "4등 당첨자 수", true));
+        data.setFourthWinAmount(getMoneyValue(row, 10, "4등 개별 당첨 금액", true));
+
+        // 5등 당첨 정보 (모두 required=true 로 변경)
+        data.setFifthWinnerCount(getIntCellValue(row, 11, "5등 당첨자 수", true));
+        data.setFifthWinAmount(getMoneyValue(row, 12, "5등 개별 당첨 금액", true));
+
+        // 당첨 번호 (보너스 번호 포함 7개)
+        Integer[] winningNumbers = new Integer[7];
+        for (int i = 0; i < 6; i++) {
+            winningNumbers[i] = getIntCellValue(row, 13 + i, "당첨번호" + (i + 1), false);
+        }
+
+        winningNumbers[6] = getIntCellValue(row, 19, "보너스번호", false);
+
+        data.setWinningNumbers(winningNumbers);
+
+        return data;
+    }
+
+    /**
+     * 셀에서 정수 값을 가져오기.
+     * @param row
+     * @param cellIndex
+     * @param fieldName
+     * @return
+     * @throws LottoDataException
+     */
+    private int getIntCellValue(Row row, int cellIndex, String fieldName) throws LottoDataException {
+        return getIntCellValue(row, cellIndex, fieldName, true);
+    }
+
+    private int getIntCellValue(Row row, int cellIndex, String fieldName, boolean required) throws LottoDataException {
+        Cell cell = row.getCell(cellIndex);
+        if (cell == null) {
+            if (required) {
+                throw new LottoDataException(fieldName + " 정보가 없습니다");
+            }
+            return -1;
+        }
+        return (int) cell.getNumericCellValue();
+    }
+
+    /**
+     * 셀에서 문자열 값 가져오기 + 형식 지정
+     * @param row
+     * @param cellIndex
+     * @param fieldName
+     * @return
+     * @throws LottoDataException
+     */
+    private String getStringCellValueAndFormat(Row row, int cellIndex, String fieldName) throws LottoDataException {
+        Cell cell = row.getCell(cellIndex);
+        if (cell == null) {
+            throw new LottoDataException(fieldName + " 정보가 없습니다");
+        }
+        String value = cell.getStringCellValue();
+        return value.replace(".", "-");
+    }
+
+    /**
+     * 셀에서 금액 가져오기.
+     * @param row
+     * @param cellIndex
+     * @param fieldName
+     * @param required
+     * @return
+     * @throws LottoDataException
+     */
+    private long getMoneyValue(Row row, int cellIndex, String fieldName, boolean required) throws LottoDataException {
+        Cell cell = row.getCell(cellIndex);
+        if (cell == null) {
+            if (required) {
+                throw new LottoDataException(fieldName + " 정보가 없습니다");
+            }
+            return -1;
+        }
+        return parseMoney(cell.getStringCellValue());
+    }
+
+    /**
+     * 금액 문자열을 숫자로 파싱
+     * @param moneyStr
+     * @return
+     */
+    private long parseMoney(String moneyStr) {
+        // 기존 parseMoney 메소드 구현
+        return Long.parseLong(moneyStr.replaceAll("\\D", ""));
     }
 }
